@@ -6,6 +6,56 @@
   <title>Casas Kiwa - Programa de Artes (Dibujo, Danza y Teatro) </title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
+<script>
+  function mostrarSeccion(seccion) {
+    const informe = document.getElementById('informe');
+    const tablero = document.getElementById('tablero');
+
+    informe.classList.remove('mostrar');
+    tablero.classList.remove('mostrar');
+
+    if (seccion === 'informe') {
+      tablero.style.display = 'none';
+      informe.style.display = 'block';
+      setTimeout(() => informe.classList.add('mostrar'), 10);
+    } else {
+      informe.style.display = 'none';
+      tablero.style.display = 'block';
+      setTimeout(() => tablero.classList.add('mostrar'), 10);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    mostrarSeccion('informe');
+  });
+</script>
+
+<script>
+  function mostrarFirma(input, contenedorId) {
+    const contenedor = document.getElementById(contenedorId);
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        contenedor.style.backgroundImage = `url('${e.target.result}')`;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function toggleComentario(mostrar) {
+    const campo = document.getElementById('comentario-recomendaciones');
+    campo.style.display = mostrar ? 'block' : 'none';
+  }
+</script>
+
+<script>
+  function toggleComentario(mostrar) {
+    const campo = document.getElementById('comentario-recomendaciones');
+    campo.style.display = mostrar ? 'block' : 'none';
+  }
+</script>
+
 <body>
 
   <header class="encabezado">
@@ -16,9 +66,31 @@
     <h1>Casas Kiwa - Programa de Artes (Dibujo, Danza y Teatro)</h1>
     <p class="subtitulo">Innovamos para inspirar y motivar a través del Arte</p>
   </header>
+ 
+    <main>
+      <div class="botonera">
+        <button onclick="mostrarSeccion('informe')">📄 Ver Informe</button>
+        <button onclick="mostrarSeccion('tablero')">📊 Ver Tablero de Control</button>
+      </div>
+    
+      <section id="tablero" class="seccion-oculta">
+        <div class="looker">
+          <h2>Tablero de Control - Visualización Interactiva</h2>
+          <iframe 
+            width="100%" 
+            height="686" 
+            src="https://lookerstudio.google.com/embed/reporting/46386242-adff-436e-81b3-b30b638f6d63/page/p_ms2ajwssqd" 
+            frameborder="0" 
+            style="border:0" 
+            allowfullscreen 
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+          </iframe>
+        </div>
+      </section> 
 
-  <main>
-    <section class="intro">
+      <section id="informe">
+        <section class="intro">
+    
       <section class="informe">
         <div class="header-informe">
           <img src="Logo Musicala.png" alt="Logo Fundación Musicala">
@@ -187,102 +259,127 @@
           </div>
         </div>
       
-        <div class="aprobacion">
+        <section class="aprobacion-editable">
           <h3>Aprobación del cierre (Subdirección de Gestión Social y RRII):</h3>
-          <table class="tabla-aprobacion">
-            <tr>
-              <th rowspan="3">APROBADO</th>
-              <td>✅ Sí</td>
-            </tr>
-            <tr>
-              <td>☑️ Sí con recomendaciones</td>
-            </tr>
-            <tr>
-              <td>⬜ No</td>
-            </tr>
+          <form>
+            <table class="tabla-aprobacion">
+              <tr>
+                <th rowspan="3">APROBADO</th>
+                <td>
+                  <label><input type="radio" name="aprobacion" value="Sí" onclick="toggleComentario(false)"> Sí</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label><input type="radio" name="aprobacion" value="Sí con recomendaciones" onclick="toggleComentario(true)">
+                    Sí con recomendaciones
+                  </label>
+                  <textarea id="comentario-recomendaciones" placeholder="Especificar recomendaciones..." style="display: none;"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label><input type="radio" name="aprobacion" value="No" onclick="toggleComentario(false)"> No</label>
+                </td>
+              </tr>              
+            </table>
+          </form>
+        
+          <div class="firmas-campos">
+            <div class="columna-firma">
+              <label><strong>Nombre:</strong></label><br>
+              <input type="text" placeholder="Nombre del responsable del proyecto"><br>
+              <label><strong>Proyecto:</strong></label><br>
+              <input type="text" placeholder="Nombre del proyecto"><br>
+              <label><strong>Fecha:</strong></label><br>
+              <input type="date"><br>
+              <label><strong>Firma:</strong> (espacio para firmar tras imprimir)</label><br>
+              <div class="firma-vacia"></div>
+            </div>
+        
+            <div class="columna-firma">
+              <label><strong>Nombre del Subd. Gestión Social y RRII:</strong></label><br>
+              <input type="text" placeholder="Nombre del subdirector"><br>
+              <label><strong>Fecha:</strong></label><br>
+              <input type="date"><br>
+              <label><strong>Firma:</strong> (espacio para firmar tras imprimir)</label><br>
+              <div class="firma-vacia"></div>
+            </div>
+          </div>
+        </section>           
+      
+        <section class="tabla-autorizacion">
+          <h3>1. Tabla de Aprobación y Autorización de Documentos</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Elaborado por:</th>
+                <th>Aprobado por:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>NOMBRE:</strong> <input type="text" placeholder="Nombre del elaborador" value="Mario Ujueta"></td>
+                <td><strong>NOMBRE:</strong> <input type="text" placeholder="Nombre del aprobador" value="Yesika Camargo"></td>
+              </tr>
+              <tr>
+                <td><strong>CARGO:</strong> <input type="text" placeholder="Cargo del elaborador" value="Coord. Programa y Proyectos"></td>
+                <td><strong>CARGO:</strong> <input type="text" placeholder="Cargo del aprobador" value="Líder de Calidad, evaluación y control"></td>
+              </tr>
+              <tr>
+                <td><strong>FECHA:</strong> <input type="date" value="2022-08-08"></td>
+                <td><strong>FECHA:</strong> <input type="date" value="2022-08-08"></td>
+              </tr>
+            </tbody>
           </table>
-        </div>
-      </section>     
-
-      <section class="firmas-finales">
-        <h3>Firmas</h3>
-        <div class="tabla-firmas">
-          <div class="columna">
-            <p><strong>Firma</strong></p>
-            <p><strong>Nombre:</strong> Jimmy Alexander Caballero Moreno</p>
-            <p><strong>Proyecto:</strong> Casas Kiwa - Musicala/p>
-            <p><strong>Fecha:</strong> ____/____/2025</p>
-          </div>
-          <div class="columna">
-            <p><strong>Firma</strong></p>
-            <p><strong>Nombre del Subd. Gestión Social y RRII:</strong> ____________________</p>
-            <p><strong>Fecha:</strong> ____/____/2025</p>
-          </div>
-        </div>
-      </section>
+        </section>        
       
-      <section class="tabla-autorizacion">
-        <h3>1. Tabla de Aprobación y Autorización de Documentos</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Elaborado por:</th>
-              <th>Aprobado por:</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>NOMBRE:</strong> Mario Ujueta</td>
-              <td><strong>NOMBRE:</strong> Yesika Camargo</td>
-            </tr>
-            <tr>
-              <td><strong>CARGO:</strong> Coord. Programa y Proyectos</td>
-              <td><strong>CARGO:</strong> Líder de Calidad, evaluación y control</td>
-            </tr>
-            <tr>
-              <td><strong>FECHA:</strong> 08/08/2022</td>
-              <td><strong>FECHA:</strong> 08/08/2022</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      
-      <section class="control-cambios">
-        <h3>2. Control de Cambios</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Versión</th>
-              <th>Fecha de Edición</th>
-              <th>Acta Aprobación</th>
-              <th>Motivo</th>
-              <th>Descripción del Cambio</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>18/11/2020</td>
-              <td>N.A</td>
-              <td>Creación</td>
-              <td>Creación del documento</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>08/08/2022</td>
-              <td>RAD-004-22</td>
-              <td>Modificación</td>
-              <td>
-                Se elimina firma del director ejecutivo. Se ajusta la matriz de indicadores: se cambia el nombre a matriz de seguimiento y control
-                al programa o proyecto; se ajustan los nombres de los tipos de indicadores.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>    
+        <section class="control-cambios">
+          <h3>2. Control de Cambios</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Versión</th>
+                <th>Fecha de Edición</th>
+                <th>Acta Aprobación</th>
+                <th>Motivo</th>
+                <th>Descripción del Cambio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" value="1"></td>
+                <td><input type="date" value="2020-11-18"></td>
+                <td><input type="text" value="N.A"></td>
+                <td><input type="text" value="Creación"></td>
+                <td>
+                  <textarea>Creación del documento</textarea>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="text" value="2"></td>
+                <td><input type="date" value="2022-08-08"></td>
+                <td><input type="text" value="RAD-004-22"></td>
+                <td><input type="text" value="Modificación"></td>
+                <td>
+                  <textarea>
+        Se elimina firma del director ejecutivo. Se ajusta la matriz de indicadores: se cambia el nombre a matriz de seguimiento y control al programa o proyecto; se ajustan los nombres de los tipos de indicadores.
+                  </textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>        
 
     </section>
   </main>
+
+  <div class="no-print botonera">
+    <button onclick="prepararParaImprimir()">🖨️ Descargar Informe en PDF</button>
+    <a href="https://lookerstudio.google.com/reporting/46386242-adff-436e-81b3-b30b638f6d63/page/p_ms2ajwssqd" target="_blank" class="boton-lookerstudio">
+      📈 Ver y descargar el Tablero en Looker Studio
+    </a>    
+  </div>  
 
   <footer>
     <p>&copy; 2025 Musicala y Fundación San Antonio</p>
@@ -290,3 +387,58 @@
 
 </body>
 </html>
+
+<script>
+  function prepararParaImprimir() {
+    const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
+    const textareas = document.querySelectorAll('textarea');
+    const radios = document.querySelectorAll('input[type="radio"]');
+
+    // Mostrar valores de inputs
+    inputs.forEach(input => {
+      const span = document.createElement('span');
+      span.textContent = input.value || '________________';
+      span.classList.add('solo-impresion');
+      input.style.display = 'none';
+      input.parentNode.insertBefore(span, input);
+    });
+
+    // Mostrar valores de textareas
+    textareas.forEach(textarea => {
+      const span = document.createElement('span');
+      span.textContent = textarea.value || '________________';
+      span.classList.add('solo-impresion');
+      textarea.style.display = 'none';
+      textarea.parentNode.insertBefore(span, textarea);
+    });
+
+    // Mostrar opción seleccionada del grupo de radios (solo uno)
+    // Mostrar opción seleccionada del grupo de radios (solo uno)
+    const seleccionado = document.querySelector('input[type="radio"]:checked');
+    if (seleccionado) {
+      const valor = seleccionado.value;
+      const span = document.createElement('span');
+      span.textContent = valor;
+      span.classList.add('solo-impresion', 'badge');
+
+      // Añade color según valor
+      if (valor.includes('Sí')) {
+        span.classList.add('badge-verde');
+      } else if (valor === 'No') {
+        span.classList.add('badge-rojo');
+      }
+
+      seleccionado.style.display = 'none';
+      seleccionado.parentNode.insertBefore(span, seleccionado);
+    }
+
+    // Imprimir y restaurar
+    setTimeout(() => {
+      window.print();
+      document.querySelectorAll('.solo-impresion').forEach(span => span.remove());
+      inputs.forEach(input => input.style.display = '');
+      textareas.forEach(textarea => textarea.style.display = '');
+      radios.forEach(radio => radio.style.display = '');
+    }, 100);
+  }
+</script>
