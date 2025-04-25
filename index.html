@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> </title>
+  <title>Casas Kiwa - Programa de Artes (Dibujo, Danza y Teatro) </title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -37,7 +37,7 @@
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = function(e) {
-        contenedor.style.backgroundImage = url('${e.target.result}');
+        contenedor.style.backgroundImage = `url('${e.target.result}')`;
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -62,8 +62,6 @@
     <div class="logos">
       <img src="Encabezado FSA.PNG" alt="Encabezado FSA" class="fsa-header">
     </div>
-    <h1></h1>
-    <p class="subtitulo"></p>
   </header>
  
     <main>
@@ -89,16 +87,7 @@
 
       <section id="informe">
         <section class="intro">
-    
-      <section class="informe">
-        <div class="header-informe">
-          <img src="Logo Musicala.png" alt="Logo Fundación Musicala">
-          <div class="titulo-institucional">
-            <h3>MUSICALA</h3>
-            <p>Escuela de Artes</p>
-          </div>
-        </div>
-      
+
         <h2 class="titulo-informe">INFORME TÉCNICO DE ABRIL DEL PROGRAMA CASAS KIWA</h2>
       
         <div class="datos-resumen">
