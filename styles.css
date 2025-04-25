@@ -665,3 +665,66 @@ textarea {
 .boton-lookerstudio:hover {
   background-color: #0c57c3;
 }
+
+.btn-evidencias {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin: 0.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+.btn-evidencias:hover {
+  background-color: #222;
+}
+
+/* Contenedor de los botones */
+.evidencias-cell .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: start;
+}
+
+/* Botón estilizado */
+.btn-evidencias {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #1a73e8;        /* Azul Google */
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;          /* 6px */
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Icono ligeramente más grande */
+.btn-evidencias .icon {
+  font-size: 1.2rem;
+}
+
+/* Hover y foco */
+.btn-evidencias:hover,
+.btn-evidencias:focus {
+  background-color: #1558b0;        /* Azul más oscuro */
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* En pantallas muy pequeñas, apilar los botones */
+@media (max-width: 480px) {
+  .evidencias-cell .btn-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-evidencias {
+    justify-content: center;
+  }
+}
